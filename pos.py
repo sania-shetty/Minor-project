@@ -1,6 +1,7 @@
 import nltk
 import spacy
 from nltk.tokenize import sent_tokenize, word_tokenize
+import pandas as p
 
 # Download necessary NLTK data files
 nltk.download('punkt')
@@ -53,15 +54,21 @@ def main(filepath):
         lemmatized_sentence = tokenize_and_lemmatize(sentence)
         subject, verb, predicate = extract_subject_verb_predicate(lemmatized_sentence)
         if subject and verb and predicate:
-            refined_sentence = f"{subject} {verb} {predicate}"
+            refined_sentence = {"Subject":subject,"Verb":verb,"Predicate":predicate}
             refined_sentences.append(refined_sentence)
     
     return refined_sentences
 
 # Example usage
 if __name__ == "__main__":
-    filepath = r'C:\Users\new\Downloads\Internship-Report updated.txt'  # Replace with the path to your text file
+    filepath = r"C:\Users\user\Downloads\sample-pdf-text.txt"  # Replace with the path to your text file
     refined_sentences = main(filepath)
+    print("\n***Without dataframe***")
     for sentence in refined_sentences:
         print(sentence)
+    print("\n***With Dataframe***")
+    df=p.DataFrame(refined_sentences)
+    print(df)
+
+
     
