@@ -52,7 +52,7 @@ def main(filepath):
     for sentence in sentences:
         lemmatized_sentence = tokenize_and_lemmatize(sentence)
         subject, verb, predicate = extract_subject_verb_predicate(lemmatized_sentence)
-        print(subject,verb,predicate)
+        """ print(subject,verb,predicate) """
         if subject and verb and predicate:
             refined_sentence = {"Subject":subject,"Verb":verb,"Predicate":predicate}
             refined_sentences.append(refined_sentence)
