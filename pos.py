@@ -1,7 +1,8 @@
 import nltk
 import spacy
 from nltk.tokenize import sent_tokenize, word_tokenize
-
+import pandas as p
+from data import scrap
 # Download necessary NLTK data files
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
@@ -47,21 +48,32 @@ def extract_subject_verb_predicate(sentence):
 def main(filepath):
     text = read_file(filepath)
     sentences = tokenize_sentences(text)
-    
     refined_sentences = []
     for sentence in sentences:
         lemmatized_sentence = tokenize_and_lemmatize(sentence)
         subject, verb, predicate = extract_subject_verb_predicate(lemmatized_sentence)
+        """ print(subject,verb,predicate) """
         if subject and verb and predicate:
-            refined_sentence = f"{subject} {verb} {predicate}"
+            refined_sentence = {"Subject":subject,"Verb":verb,"Predicate":predicate}
             refined_sentences.append(refined_sentence)
     
     return refined_sentences
 
 # Example usage
 if __name__ == "__main__":
-    filepath = r'C:\Users\new\Downloads\Internship-Report updated.txt'  # Replace with the path to your text file
-    refined_sentences = main(filepath)
-    for sentence in refined_sentences:
-        print(sentence)
+    link=str(input("**Paste a wikipedia link extract data** \n"))
+    extract=scrap(link)
+    if(extract):
+        filepath = r"document.txt"  # Replace with the path to your text file
+        refined_sentences = main(filepath)
+        print("\n***Without dataframe***")
+        for sentence in refined_sentences:
+            print(sentence)
+        print("\n***With Dataframe***")
+        df=p.DataFrame(refined_sentences)
+        print(df)
+    else:
+        print("Enter Valid URL")
+
+
     
