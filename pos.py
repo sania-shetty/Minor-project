@@ -2,7 +2,7 @@ import nltk
 import spacy
 from nltk.tokenize import sent_tokenize, word_tokenize
 import pandas as p
-
+from data import scrap
 # Download necessary NLTK data files
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
@@ -61,14 +61,19 @@ def main(filepath):
 
 # Example usage
 if __name__ == "__main__":
-    filepath = r"sample-pdf-text.txt"  # Replace with the path to your text file
-    refined_sentences = main(filepath)
-    print("\n***Without dataframe***")
-    for sentence in refined_sentences:
-        print(sentence)
-    print("\n***With Dataframe***")
-    df=p.DataFrame(refined_sentences)
-    print(df)
+    link=str(input("**Paste a wikipedia link extract data** \n"))
+    extract=scrap(link)
+    if(extract):
+        filepath = r"document.txt"  # Replace with the path to your text file
+        refined_sentences = main(filepath)
+        print("\n***Without dataframe***")
+        for sentence in refined_sentences:
+            print(sentence)
+        print("\n***With Dataframe***")
+        df=p.DataFrame(refined_sentences)
+        print(df)
+    else:
+        print("Enter Valid URL")
 
 
     
