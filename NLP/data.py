@@ -6,6 +6,7 @@ def scrap(link):
         content=b(file.text,'html.parser')
         tags=content.find_all('p')
         with open('document.txt','w') as cleardoc:
+            cleardoc.seek(0)
             cleardoc.write('')
         for tag in tags:
             try:
